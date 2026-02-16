@@ -1,0 +1,986 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Portfolio - Aditya Sanu</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --bg-primary: #1a1a1a;
+            --bg-secondary: #2a2a2a;
+            --bg-tertiary: #242424;
+            --bg-card: #1f1f1f;
+            --text-primary: #e0e0e0;
+            --text-secondary: #d0d0d0;
+            --text-tertiary: #b0b0b0;
+            --text-muted: #999;
+            --text-dark: #888;
+            --border-color: #3a3a3a;
+            --accent-color: #f4c430;
+            --accent-hover: #ffed4e;
+            --accent-secondary: #e0b020;
+            --white: #fff;
+            --card-hover-shadow: rgba(244, 196, 48, 0.2);
+        }
+
+        [data-theme="light"] {
+            --bg-primary: #f5f5f5;
+            --bg-secondary: #ffffff;
+            --bg-tertiary: #fafafa;
+            --bg-card: #ffffff;
+            --text-primary: #1a1a1a;
+            --text-secondary: #2a2a2a;
+            --text-tertiary: #444444;
+            --text-muted: #666666;
+            --text-dark: #888888;
+            --border-color: #e0e0e0;
+            --accent-color: #f4c430;
+            --accent-hover: #e0b020;
+            --accent-secondary: #d4a810;
+            --white: #1a1a1a;
+            --card-hover-shadow: rgba(244, 196, 48, 0.3);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+        }
+
+        body {
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        /* Theme Toggle Button */
+        .theme-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: var(--bg-secondary);
+            border: 2px solid var(--border-color);
+            border-radius: 50px;
+            padding: 10px 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            transition: all 0.3s ease;
+        }
+
+        .theme-toggle:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px var(--card-hover-shadow);
+            border-color: var(--accent-color);
+        }
+
+        .theme-toggle i {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+        }
+
+        .theme-toggle span {
+            font-weight: 600;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            gap: 2rem;
+            padding: 1.5rem;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        /* Sidebar */
+        .sidebar {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            padding: 1.5rem 2rem;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 600px;
+            text-align: center;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.4);
+            border: 1px solid var(--border-color);
+        }
+
+        .profile-img {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            margin: 0 auto 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(244, 196, 48, 0.3);
+            border: 4px solid var(--accent-color);
+        }
+
+        .profile-img img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .sidebar h1 {
+            font-size: 1.6rem;
+            text-align: center;
+            margin-bottom: 0.2rem;
+            color: var(--white);
+            font-weight: 700;
+        }
+
+        .job-title {
+            text-align: center;
+            color: var(--accent-color);
+            font-weight: 600;
+            margin-bottom: 1.2rem;
+            font-size: 0.95rem;
+            letter-spacing: 0.5px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-top: 1rem;
+        }
+
+        .social-links a {
+            color: var(--text-primary);
+            font-size: 1.3rem;
+            transition: all 0.3s;
+        }
+
+        .social-links a:hover {
+            color: var(--accent-color);
+            transform: scale(1.2);
+        }
+
+        /* Download Resume Button */
+        .download-resume {
+            display: inline-block;
+            margin-top: 1.5rem;
+            padding: 0.8rem 2rem;
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-secondary) 100%);
+            color: #1a1a1a;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(244, 196, 48, 0.3);
+        }
+
+        .download-resume:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(244, 196, 48, 0.5);
+        }
+
+        .download-resume i {
+            margin-right: 0.5rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            padding: 1rem 3rem;
+            width: 100%;
+        }
+
+        section {
+            margin-bottom: 3rem;
+            padding: 0 2rem;
+        }
+
+        section h2 {
+            font-size: 2rem;
+            color: var(--white);
+            margin-bottom: 2rem;
+            position: relative;
+            padding-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        section h2::before {
+            content: '';
+            display: block;
+            width: 4px;
+            height: 30px;
+            background: var(--accent-color);
+            border-radius: 2px;
+        }
+
+        /* About Me Section */
+        .about-section {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .about-section p {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-secondary);
+            text-align: justify;
+        }
+
+        /* Contact Section */
+        .contact-section {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            padding: 2.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin-top: 1.5rem;
+        }
+
+        .contact-item {
+            background: var(--bg-card);
+            padding: 1.5rem;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+        }
+
+        .contact-item:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px var(--card-hover-shadow);
+        }
+
+        .contact-icon {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, var(--accent-color) 0%, var(--accent-secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            color: #1a1a1a;
+            flex-shrink: 0;
+        }
+
+        .contact-info h3 {
+            color: var(--white);
+            font-size: 1rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .contact-info p {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+            margin: 0;
+        }
+
+        .contact-info a {
+            color: var(--accent-color);
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .contact-info a:hover {
+            color: var(--accent-hover);
+        }
+
+        /* Skills Section */
+        .skills-category-title {
+            color: var(--accent-color);
+            font-size: 1.2rem;
+            margin-bottom: 1rem;
+            padding-left: 0.5rem;
+            border-left: 3px solid var(--accent-color);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .skill-badge {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            border-radius: 8px;
+            text-align: center;
+            border: 2px solid var(--border-color);
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .skill-badge:hover {
+            border-color: var(--accent-color);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 16px var(--card-hover-shadow);
+        }
+
+        .skill-badge i {
+            font-size: 2.5rem;
+            color: var(--accent-color);
+            margin-bottom: 0.8rem;
+            display: block;
+        }
+
+        .skill-badge p {
+            font-size: 0.9rem;
+            color: var(--text-secondary);
+        }
+
+        /* Education Section */
+        .education-container {
+            position: relative;
+            padding-left: 2rem;
+        }
+
+        .education-container::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 3px;
+            height: 100%;
+            background: linear-gradient(180deg, var(--accent-color) 0%, transparent 100%);
+            border-radius: 2px;
+        }
+
+        .education-item {
+            background: var(--bg-secondary);
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 8px;
+            position: relative;
+            border-left: 3px solid var(--accent-color);
+            transition: all 0.3s;
+        }
+
+        .education-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 16px rgba(244, 196, 48, 0.15);
+        }
+
+        .education-item::before {
+            content: '';
+            position: absolute;
+            left: -38px;
+            top: 25px;
+            width: 20px;
+            height: 20px;
+            background: var(--accent-color);
+            border-radius: 50%;
+            border: 3px solid var(--bg-primary);
+        }
+
+        .date-range {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .date-range::before {
+            content: '\f133';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+        }
+
+        .education-item h3 {
+            color: var(--white);
+            margin-bottom: 0.3rem;
+            font-size: 1.1rem;
+        }
+
+        .education-item .school {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+        }
+
+        .education-item p {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Projects Section */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .project-item {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .project-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px var(--card-hover-shadow);
+            border-color: var(--accent-color);
+        }
+
+        .project-item .project-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #444 0%, #333 100%);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .project-item .project-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .project-item h3 {
+            color: var(--white);
+            margin-bottom: 0.8rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .project-item p {
+            color: var(--text-tertiary);
+            font-size: 0.9rem;
+            margin-bottom: 0.8rem;
+            flex-grow: 1;
+        }
+
+        .project-item .tech {
+            color: var(--accent-color);
+            font-size: 0.85rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .project-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+            margin-top: auto;
+        }
+
+        .project-link:hover {
+            color: var(--accent-hover);
+            transform: translateX(5px);
+        }
+
+        /* Certificates Section */
+        .certificates-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2rem;
+            width: 100%;
+        }
+
+        .certificate-item {
+            background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+            padding: 2rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            height: 100%;
+            overflow: hidden;
+        }
+
+        .certificate-item:hover {
+            transform: translateY(-8px);
+            box-shadow: 0 12px 30px var(--card-hover-shadow);
+            border-color: var(--accent-color);
+        }
+
+        .certificate-item .cert-image {
+            width: 100%;
+            height: 150px;
+            background: linear-gradient(135deg, #444 0%, #333 100%);
+            border-radius: 8px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #888;
+            font-size: 3rem;
+            overflow: hidden;
+        }
+
+        .certificate-item .cert-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .certificate-item h3 {
+            color: var(--white);
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+            font-weight: 600;
+        }
+
+        .certificate-item .issuer {
+            color: var(--accent-color);
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+        }
+
+        .certificate-link {
+            color: var(--accent-color);
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-block;
+            transition: all 0.3s;
+            margin-top: auto;
+        }
+
+        .certificate-link:hover {
+            color: var(--accent-hover);
+            transform: translateX(5px);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .theme-toggle {
+                top: 10px;
+                right: 10px;
+                padding: 8px 15px;
+            }
+
+            .theme-toggle span {
+                display: none;
+            }
+
+            .container {
+                flex-direction: column;
+                gap: 2rem;
+                padding: 1rem;
+            }
+
+            .sidebar {
+                max-width: 100%;
+            }
+
+            section h2 {
+                font-size: 1.5rem;
+            }
+
+            .skills-grid {
+                grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+                gap: 1rem;
+            }
+
+            .skill-badge {
+                padding: 1rem;
+            }
+
+            .skill-badge i {
+                font-size: 2rem;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .main-content {
+                padding: 1rem;
+            }
+
+            section {
+                padding: 0 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Theme Toggle Button -->
+    <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <i class="fas fa-moon" id="theme-icon"></i>
+        <span id="theme-text">Dark Mode</span>
+    </button>
+
+    <div class="container">
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="profile-img">
+                <img src="profile.png" alt="Aditya Sanu">
+            </div>
+            <h1>Aditya Sanu</h1>
+            <p class="job-title">Cybersecurity Enthusiast & Game Developer</p>
+
+            <div class="social-links">
+                <a href="https://github.com/Adityasanu" target="_blank" title="GitHub"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/aditya-sanu/" target="_blank" title="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            </div>
+
+            <!-- Download Resume Button -->
+            <a href="https://drive.google.com/file/d/177gSnUi1rhsUqWZ97U08ZgGrNmsErMfZ/view?usp=sharing" class="download-resume" download>
+                <i class="fas fa-download"></i>Download Resume
+            </a>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <!-- About Me Section -->
+            <section id="about" class="about-section">
+                <h2>About Me</h2>
+                <p>Hi, I'm Aditya Sanu, a B.Tech Computer Science student passionate about Cybersecurity and Game Development. I'm deeply interested in understanding how systems work, securing them against real-world threats, and exploring areas like ethical hacking and network security. Alongside this, I enjoy creating interactive and engaging gaming experiences. I'm always learning, improving my technical skills, and staying updated with emerging technologies to build secure and innovative solutions.</p>
+            </section>
+
+            <!-- Skills Section -->
+            <section id="skills">
+                <h2>Skills & Technologies</h2>
+                
+                <!-- Languages -->
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 class="skills-category-title">Languages</h3>
+                    <div class="skills-grid">
+                        <div class="skill-badge">
+                            <i class="fab fa-python"></i>
+                            <p>Python</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-code"></i>
+                            <p>C++</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fab fa-js-square"></i>
+                            <p>JavaScript</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fab fa-java"></i>
+                            <p>Java</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Frameworks -->
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 class="skills-category-title">Frameworks</h3>
+                    <div class="skills-grid">
+                        <div class="skill-badge">
+                            <i class="fas fa-shield-alt"></i>
+                            <p>CIA Triad</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-search"></i>
+                            <p>OSINT</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-lock"></i>
+                            <p>CIS Controls</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-file-shield"></i>
+                            <p>NIST CSF</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-bug"></i>
+                            <p>OWASP Top 10</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tools/Platforms -->
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 class="skills-category-title">Tools/Platforms</h3>
+                    <div class="skills-grid">
+                        <div class="skill-badge">
+                            <i class="fas fa-network-wired"></i>
+                            <p>Wireshark</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-terminal"></i>
+                            <p>Nmap</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-shield-virus"></i>
+                            <p>Nessus</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-spider"></i>
+                            <p>Burp Suite</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fab fa-linux"></i>
+                            <p>Kali Linux Tools</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-search-plus"></i>
+                            <p>Autopsy</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Game Development -->
+                <div style="margin-bottom: 2.5rem;">
+                    <h3 class="skills-category-title">Game Development</h3>
+                    <div class="skills-grid">
+                        <div class="skill-badge">
+                            <i class="fab fa-unity"></i>
+                            <p>Unity</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-hashtag"></i>
+                            <p>C#</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-rocket"></i>
+                            <p>Game Physics</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-layer-group"></i>
+                            <p>Level Design</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-cube"></i>
+                            <p>Blender</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Soft Skills -->
+                <div>
+                    <h3 class="skills-category-title">Soft Skills</h3>
+                    <div class="skills-grid">
+                        <div class="skill-badge">
+                            <i class="fas fa-users"></i>
+                            <p>Leadership</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-lightbulb"></i>
+                            <p>Problem-Solving</p>
+                        </div>
+                        <div class="skill-badge">
+                            <i class="fas fa-sync-alt"></i>
+                            <p>Adaptability</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Projects Section -->
+            <section id="projects">
+                <h2>Projects</h2>
+                <div class="projects-grid">
+                    <div class="project-item">
+                        <div class="project-image">
+                            <img src="ai city exploraton chatbot.png" alt="AI Powered City Exploration Chatbot">
+                        </div>
+                        <h3>AI Powered City Exploration Chatbot</h3>
+                        <div class="tech">Python • AI/ML • NLP • JavaScript</div>
+                        <p>Developed an intelligent chatbot system that provides real-time city exploration guidance using artificial intelligence and natural language processing technologies. Features include location-based recommendations, interactive conversational interface, and smart query handling.</p>
+                        <a href="https://github.com/Adityasanu/Ai-city-exploration-chatbot/blob/main/chatbot.html" class="project-link">View Project →</a>
+                    </div>
+                    <div class="project-item">
+                        <div class="project-image">
+                            <img src="car reservation system.png" alt="Car Reservation System">
+                        </div>
+                        <h3>car rental website UI with booking features</h3>
+                        <div class="tech">Java • Database • UI Design</div>
+                        <p>Built a comprehensive car reservation system with user authentication, booking management, and payment processing capabilities for seamless vehicle reservation. Implemented database integration and intuitive user interface for enhanced customer experience.</p>
+                        <a href="https://github.com/Adityasanu/car-reservation-system/blob/main/car_rent.html" class="project-link">View Project →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Certificates Section -->
+            <section id="certificates">
+                <h2>Certifications & Courses</h2>
+                <div class="certificates-grid">
+                    <div class="certificate-item">
+                        <div class="cert-image">
+                            <img src="automation.png" alt="Language Principle & Finite Automata Theory">
+                        </div>
+                        <h3>Language Principle & Finite Automata Theory</h3>
+                        <p class="issuer">Academic Course Certification</p>
+                        <a href="https://drive.google.com/file/d/1aURyr2BlGMV0KM4D_SRxmRetbaE-xGU9/view?usp=sharing" class="certificate-link">View Certificate →</a>
+                    </div>
+                    <div class="certificate-item">
+                        <div class="cert-image">
+                            <img src="Privacy and Security.png" alt="Privacy & Security in Online Social Media">
+                        </div>
+                        <h3>Privacy & Security in Online Social Media</h3>
+                        <p class="issuer">NPTEL Certification</p>
+                        <a href="https://archive.nptel.ac.in/content/noc/NOC25/SEM1/Ecertificates/106/noc25-cs79/Course/NPTEL25CS79S14750051804479405.pdf" class="certificate-link">View Certificate →</a>
+                    </div>
+                    <div class="certificate-item">
+                        <div class="cert-image">
+                            <img src="introduction to os.png" alt="Introduction to Hardware and OS">
+                        </div>
+                        <h3>Introduction to Hardware and Operating Systems</h3>
+                        <p class="issuer">Coursera Certification</p>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/4X50W2EBJZ0D" class="certificate-link">View Certificate →</a>
+                    </div>
+                    <div class="certificate-item">
+                        <div class="cert-image">
+                            <img src="fundamental of network.png" alt="Fundamental of Network Communication">
+                        </div>
+                        <h3>Fundamentals of Network Communication</h3>
+                        <p class="issuer">Coursera Certification</p>
+                        <a href="https://www.coursera.org/account/accomplishments/verify/QD5KXUY8ENHI" class="certificate-link">View Certificate →</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Education Section -->
+            <section id="education">
+                <h2>Education</h2>
+                <div class="education-container">
+                    <div class="education-item">
+                        <div class="date-range">2023 - Present</div>
+                        <h3>Bachelor of Technology - Computer Science and Engineering</h3>
+                        <p class="school">Lovely Professional University, Punjab</p>
+                        <p>Focused on network security, cryptography, cyber threat analysis, and information security management. Building strong foundations in software development, data structures, algorithms, and system design.</p>
+                    </div>
+                    <div class="education-item">
+                        <div class="date-range">2021 - 2022</div>
+                        <h3>Higher Secondary (12th Class)</h3>
+                        <p>Successfully completed senior secondary education with focus on science stream, building analytical and problem-solving skills.</p>
+                    </div>
+                    <div class="education-item">
+                        <div class="date-range">2019 - 2020</div>
+                        <h3>Secondary (10th Class)</h3>
+                        <p>Completed foundational secondary education with emphasis on mathematics and science.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Contact Section -->
+            <section id="contact" class="contact-section">
+                <h2>Contact Me</h2>
+                <div class="contact-grid">
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Email</h3>
+                            <p><a href="mailto:adityasanu44@gmail.com">adityasanu44@gmail.com</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Phone</h3>
+                            <p>+91 8580155290</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h3>Location</h3>
+                            <p>Punjab, India</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-github"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h3>GitHub</h3>
+                            <p><a href="https://github.com/Adityasanu" target="_blank">github.com/Adityasanu</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fab fa-linkedin"></i>
+                        </div>
+                        <div class="contact-info">
+                            <h3>LinkedIn</h3>
+                            <p><a href="https://www.linkedin.com/in/aditya-sanu/" target="_blank">linkedin.com/in/aditya-sanu</a></p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <script>
+        // Theme toggle functionality
+        function toggleTheme() {
+            const html = document.documentElement;
+            const currentTheme = html.getAttribute('data-theme');
+            const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            html.setAttribute('data-theme', newTheme);
+            localStorage.setItem('theme', newTheme);
+            
+            // Update icon and text
+            if (newTheme === 'light') {
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Light Mode';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = 'Dark Mode';
+            }
+        }
+
+        // Load saved theme on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            const savedTheme = localStorage.getItem('theme') || 'dark';
+            const themeIcon = document.getElementById('theme-icon');
+            const themeText = document.getElementById('theme-text');
+            
+            document.documentElement.setAttribute('data-theme', savedTheme);
+            
+            // Set initial icon and text based on saved theme
+            if (savedTheme === 'light') {
+                themeIcon.className = 'fas fa-sun';
+                themeText.textContent = 'Light Mode';
+            } else {
+                themeIcon.className = 'fas fa-moon';
+                themeText.textContent = 'Dark Mode';
+            }
+        });
+    </script>
+</body>
+</html>
